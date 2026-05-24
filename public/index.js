@@ -1636,7 +1636,7 @@ PAGE_RENDERERS['tentang'] = function() {
       '<p style="line-height:1.8;color:#4B5563;margin-top:1rem;">Dibangun dengan teknologi web modern menggunakan tema Neo-Brutalism yang memberikan pengalaman pengguna yang unik, responsif, dan menyenangkan.</p>' +
       '<div style="margin-top:1.5rem;padding:1rem;background:var(--light-orange);border:2px solid var(--dark);border-radius:8px;">' +
         '<p style="font-weight:600;margin-bottom:0.5rem;">Teknologi:</p>' +
-        '<p style="color:#4B5563;font-size:0.9rem;">Frontend: HTML5, CSS3, Vanilla JavaScript<br>Backend: Node.js, Express.js<br>Database: Turso (LibSQL)<br>Deploy: Vercel</p>' +
+        '<p style="color:#4B5563;font-size:0.9rem;">Frontend: HTML5, CSS3, Vanilla JavaScript<br>Backend: Node.js, Express.js<br>Database: (LibSQL)<br>Deploy: Vercel</p>' +
       '</div>' +
     '</div>';
 };
@@ -1651,14 +1651,14 @@ PAGE_RENDERERS['developer'] = function() {
       '<div class="dev-card">' +
         '<div class="dev-avatar"><i class="fas fa-user"></i></div>' +
         '<div class="dev-info" style="flex:1;">' +
-          '<h3 style="margin-bottom:1rem;color:var(--primary-dark);">Andriyt</h3>' +
+          '<h3 style="margin-bottom:1rem;color:var(--primary-dark);">ANDRI STORE</h3>' +
           '<dl>' +
-            '<dt>Nama</dt><dd>Andriyt</dd>' +
+            '<dt>Nama</dt><dd>ANDRIZAL</dd>' +
             '<dt>Peran</dt><dd>Full Stack Developer & System Architect</dd>' +
             '<dt>Spesialisasi</dt><dd>Web Application, Database Management, UI/UX Design</dd>' +
             '<dt>Proyek</dt><dd>KasirKu - Sistem Meja Kasir Online</dd>' +
-            '<dt>Stack</dt><dd>Node.js, Express, LibSQL/Turso, HTML/CSS/JS</dd>' +
-            '<dt>Desain</dt><dd>Neo-Brutalism UI Theme</dd>' +
+            '<dt>Stack</dt><dd>Node.js, Express, LibSQL, HTML/CSS/JS</dd>' +
+            '<dt>Desain</dt><dd>UI/UX yang modern</dd>' +
           '</dl>' +
         '</div>' +
       '</div>' +
@@ -1677,25 +1677,25 @@ PAGE_RENDERERS['kontak'] = function() {
         '<div class="card" style="cursor:pointer;" onclick="showToast(\'Fitur WhatsApp sedang dikembangkan\',\'info\')">' +
           '<div style="display:flex;align-items:center;gap:1rem;">' +
             '<div style="width:48px;height:48px;background:#25D366;border:2px solid var(--dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.3rem;"><i class="fab fa-whatsapp"></i></div>' +
-            '<div><div style="font-weight:700;">WhatsApp</div><div style="color:#6B7280;font-size:0.85rem;">+62 812-XXXX-XXXX</div></div>' +
+            '<div><div style="font-weight:700;">WhatsApp</div><div style="color:#6B7280;font-size:0.85rem;">+6281934874758</div></div>' +
           '</div>' +
         '</div>' +
         '<div class="card" style="cursor:pointer;" onclick="showToast(\'Fitur Instagram sedang dikembangkan\',\'info\')">' +
           '<div style="display:flex;align-items:center;gap:1rem;">' +
             '<div style="width:48px;height:48px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border:2px solid var(--dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.3rem;"><i class="fab fa-instagram"></i></div>' +
-            '<div><div style="font-weight:700;">Instagram</div><div style="color:#6B7280;font-size:0.85rem;">@kasirku.id</div></div>' +
+            '<div><div style="font-weight:700;">Instagram</div><div style="color:#6B7280;font-size:0.85rem;">@Androstore002</div></div>' +
           '</div>' +
         '</div>' +
         '<div class="card" style="cursor:pointer;" onclick="showToast(\'Fitur GitHub sedang dikembangkan\',\'info\')">' +
           '<div style="display:flex;align-items:center;gap:1rem;">' +
             '<div style="width:48px;height:48px;background:#333;border:2px solid var(--dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.3rem;"><i class="fab fa-github"></i></div>' +
-            '<div><div style="font-weight:700;">GitHub</div><div style="color:#6B7280;font-size:0.85rem;">github.com/andriyt</div></div>' +
+            '<div><div style="font-weight:700;">GitHub</div><div style="color:#6B7280;font-size:0.85rem;">github.com</div></div>' +
           '</div>' +
         '</div>' +
         '<div class="card" style="cursor:pointer;" onclick="showToast(\'Fitur Email sedang dikembangkan\',\'info\')">' +
           '<div style="display:flex;align-items:center;gap:1rem;">' +
             '<div style="width:48px;height:48px;background:var(--secondary);border:2px solid var(--dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.3rem;"><i class="fas fa-envelope"></i></div>' +
-            '<div><div style="font-weight:700;">Email</div><div style="color:#6B7280;font-size:0.85rem;">support@kasirku.id</div></div>' +
+            '<div><div style="font-weight:700;">Email</div><div style="color:#6B7280;font-size:0.85rem;">support@andrizalhacieboan</div></div>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -1719,7 +1719,3 @@ function sendContact() {
   document.getElementById('contactEmail').value = '';
   document.getElementById('contactMessage').value = '';
 }
-
-// ====================================================================
-// SELESAI — Semua page renderer terdefinisi lengkap
-// ====================================================================
