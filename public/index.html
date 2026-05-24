@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KasirKu — Meja Kasir Online</title>
+  <title>KasirKu/byandri</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-  <!-- ========== LOGIN OVERLAY ========== -->
   <div id="loginOverlay" class="login-overlay">
     <div class="login-card">
       <div class="login-logo">
@@ -20,17 +19,17 @@
       </div>
       <form id="loginForm" autocomplete="off">
         <div class="input-group">
-          <label for="loginUser"><i class="fas fa-user"></i> User ID</label>
+          <label for="loginUser"><i class="fas fa-user"></i>User ID</label>
           <input type="text" id="loginUser" placeholder="Masukkan User ID" required>
         </div>
         <div class="input-group">
-          <label for="loginPass"><i class="fas fa-lock"></i> Password</label>
+          <label for="loginPass"><i class="fas fa-lock"></i>Password</label>
           <input type="password" id="loginPass" placeholder="Masukkan Password" required>
         </div>
         <div id="loginError" class="login-error" style="display:none;"></div>
         <div class="login-buttons">
           <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-check"></i> OK</button>
-          <button type="button" id="loginCancel" class="btn btn-outline btn-lg"><i class="fas fa-times"></i> CANCEL</button>
+          <button type="button" id="loginCancel" class="btn btn-outline btn-lg"><i class="fas fa-times"></i>CANCEL</button>
         </div>
       </form>
     </div>
@@ -42,10 +41,8 @@
     </div>
   </div>
 
-  <!-- ========== MAIN APP ========== -->
   <div id="mainApp" class="main-app" style="display:none;">
 
-    <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
       <div class="nav-brand" onclick="navigateTo('dashboard')">
         <i class="fas fa-cash-register"></i>
@@ -55,56 +52,49 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-menu" id="navMenu">
-        <!-- Profil -->
-        <li class="nav-item has-dropdown">
-          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-user-circle"></i> Profil <i class="fas fa-chevron-down dd-arrow"></i></a>
+      <li class="nav-item has-dropdown">
+          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-user-circle"></i>Profil<i class="fas fa-chevron-down dd-arrow"></i></a>
           <ul class="dropdown">
-            <li><a href="javascript:void(0)" onclick="navigateTo('ganti-password')"><i class="fas fa-key"></i> Ganti Password</a></li>
-            <li><a href="javascript:void(0)" onclick="navigateTo('add-admin')"><i class="fas fa-user-shield"></i> Add Admin</a></li>
-            <li><a href="javascript:void(0)" onclick="navigateTo('add-user')"><i class="fas fa-user-plus"></i> Add User</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('ganti-password')"><i class="fas fa-key"></i>Ganti Password</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('add-admin')"><i class="fas fa-user-shield"></i>Add Admin</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('add-user')"><i class="fas fa-user-plus"></i>Add User</a></li>
           </ul>
         </li>
-        <!-- Master -->
         <li class="nav-item has-dropdown">
-          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-database"></i> Master <i class="fas fa-chevron-down dd-arrow"></i></a>
+          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-database"></i>Master <i class="fas fa-chevron-down dd-arrow"></i></a>
           <ul class="dropdown">
-            <li><a href="javascript:void(0)" onclick="navigateTo('daftar-area')"><i class="fas fa-map-marker-alt"></i> Daftar Area</a></li>
-            <li><a href="javascript:void(0)" onclick="navigateTo('daftar-langganan')"><i class="fas fa-users"></i> Daftar Langganan</a></li>
-            <li><a href="javascript:void(0)" onclick="navigateTo('daftar-stok')"><i class="fas fa-boxes-stacked"></i> Daftar Stok</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('daftar-area')"><i class="fas fa-map-marker-alt"></i>Daftar Area</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('daftar-langganan')"><i class="fas fa-users"></i>Daftar Langganan</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('daftar-stok')"><i class="fas fa-boxes-stacked"></i>Daftar Stok</a></li>
           </ul>
         </li>
-        <!-- Penjualan -->
         <li class="nav-item has-dropdown">
-          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-cart-shopping"></i> Penjualan <i class="fas fa-chevron-down dd-arrow"></i></a>
+          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-cart-shopping"></i>Penjualan<i class="fas fa-chevron-down dd-arrow"></i></a>
           <ul class="dropdown">
-            <li><a href="javascript:void(0)" onclick="navigateTo('penjualan-30')"><i class="fas fa-receipt"></i> Transaksi Penjualan 30 Hari</a></li>
-            <li><a href="javascript:void(0)" onclick="navigateTo('return-penjualan')"><i class="fas fa-rotate-left"></i> Transaksi Return Penjualan</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('penjualan-30')"><i class="fas fa-receipt"></i>Transaksi Penjualan 30 Hari</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('return-penjualan')"><i class="fas fa-rotate-left"></i>Transaksi Return Penjualan</a></li>
             <li><a href="javascript:void(0)" onclick="navigateTo('cetak-ulang')"><i class="fas fa-print"></i> Cetak Ulang Nota Penjualan</a></li>
           </ul>
         </li>
-        <!-- Piutang -->
         <li class="nav-item has-dropdown">
-          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-hand-holding-dollar"></i> Piutang <i class="fas fa-chevron-down dd-arrow"></i></a>
+          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-hand-holding-dollar"></i>Piutang <i class="fas fa-chevron-down dd-arrow"></i></a>
           <ul class="dropdown">
-            <li><a href="javascript:void(0)" onclick="navigateTo('penagihan-piutang')"><i class="fas fa-file-invoice-dollar"></i> Transaksi Penagihan Piutang</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('penagihan-piutang')"><i class="fas fa-file-invoice-dollar"></i>Transaksi Penagihan Piutang</a></li>
           </ul>
         </li>
-        <!-- Pembelian -->
         <li class="nav-item has-dropdown">
-          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-truck"></i> Pembelian <i class="fas fa-chevron-down dd-arrow"></i></a>
+          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-truck"></i>Pembelian <i class="fas fa-chevron-down dd-arrow"></i></a>
           <ul class="dropdown">
-            <li><a href="javascript:void(0)" onclick="navigateTo('transaksi-pembelian')"><i class="fas fa-shopping-bag"></i> Transaksi Pembelian</a></li>
-            <li><a href="javascript:void(0)" onclick="navigateTo('return-pembelian')"><i class="fas fa-rotate-left"></i> Return Pembelian</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('transaksi-pembelian')"><i class="fas fa-shopping-bag"></i>Transaksi Pembelian</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('return-pembelian')"><i class="fas fa-rotate-left"></i>Return Pembelian</a></li>
           </ul>
         </li>
-        <!-- Hutang -->
         <li class="nav-item has-dropdown">
-          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-credit-card"></i> Hutang <i class="fas fa-chevron-down dd-arrow"></i></a>
+          <a href="javascript:void(0)" class="nav-link"><i class="fas fa-credit-card"></i>Hutang <i class="fas fa-chevron-down dd-arrow"></i></a>
           <ul class="dropdown">
-            <li><a href="javascript:void(0)" onclick="navigateTo('pembayaran-hutang')"><i class="fas fa-money-bill-transfer"></i> Transaksi Pembayaran Hutang</a></li>
+            <li><a href="javascript:void(0)" onclick="navigateTo('pembayaran-hutang')"><i class="fas fa-money-bill-transfer"></i>Transaksi Pembayaran Hutang</a></li>
           </ul>
         </li>
-        <!-- Database -->
         <li class="nav-item has-dropdown">
           <a href="javascript:void(0)" class="nav-link"><i class="fas fa-server"></i> Database <i class="fas fa-chevron-down dd-arrow"></i></a>
           <ul class="dropdown dropdown-wide">
@@ -122,7 +112,6 @@
             <li><a href="javascript:void(0)" onclick="navigateTo('tutup-buku')"><i class="fas fa-book"></i> Tutup Buku Bulanan</a></li>
           </ul>
         </li>
-        <!-- Informasi -->
         <li class="nav-item has-dropdown">
           <a href="javascript:void(0)" class="nav-link"><i class="fas fa-info-circle"></i> Informasi <i class="fas fa-chevron-down dd-arrow"></i></a>
           <ul class="dropdown">
@@ -132,21 +121,17 @@
             <li><a href="javascript:void(0)" onclick="navigateTo('kontak')"><i class="fas fa-address-book"></i> Kontak dan Sosial</a></li>
           </ul>
         </li>
-        <!-- Exit -->
         <li class="nav-item">
           <a href="javascript:void(0)" class="nav-link nav-exit" onclick="handleExit()"><i class="fas fa-right-from-bracket"></i> Exit</a>
         </li>
       </ul>
     </nav>
     
-    <!-- CONTENT -->
     <main class="main-content" id="mainContent">
       <div class="content-wrapper" id="contentWrapper">
-        <!-- Konten dimuat secara dinamis oleh JS -->
-      </div>
+    </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-wave">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
@@ -191,15 +176,11 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 KasirKu. Seluruh hak cipta dilindungi undang undang.</p>
-        <p>Dibuat dengan <i class="fas fa-heart" style="color:#FF6B00;"></i> untuk bisnis UMKM Indonesia</p>
+        <p>Dibuat dengan ikhlas untuk bisnis UMKM Indonesia</p>
       </div>
     </footer>
   </div>
-
-  <!-- TOAST -->
   <div id="toastContainer" class="toast-container"></div>
-
-  <!-- MODAL -->
   <div id="modalOverlay" class="modal-overlay" style="display:none;">
     <div class="modal-card" id="modalCard">
       <div class="modal-header">
