@@ -445,6 +445,10 @@ function doExit() {
   closeModal();
   APP.currentUser = null;
   APP.cart = [];
+  
+  // Hapus sesi permanen saat exit
+  clearSession(); 
+  
   document.getElementById('mainApp').style.display = 'none';
   var overlay = document.getElementById('loginOverlay');
   overlay.style.display = 'flex';
