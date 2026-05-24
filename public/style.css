@@ -269,9 +269,11 @@ a { text-decoration: none; color: inherit; }
   background: var(--dark);
   border-bottom: 3px solid var(--primary);
   padding: 0 1.5rem;
-  display: flex; align-items: center;
-  height: 60px;
+  display: flex; 
+  align-items: center;
+  min-height: 60px; /* Gunakan min-height agar tidak memotong dropdown */
   backdrop-filter: blur(10px);
+  overflow: visible; /* PENTING: Agar dropdown muncul di luar navbar */
 }
 
 .nav-brand {
@@ -280,13 +282,13 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-display);
   font-weight: 700; font-size: 1.3rem;
   cursor: pointer;
-  margin-right: 2rem;
+  margin-right: auto; /* Dorong menu ke samping kanan */
   transition: var(--transition);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .nav-brand:hover { color: var(--white); }
-
 .nav-brand i { font-size: 1.4rem; }
 
 .hamburger {
@@ -294,6 +296,7 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column; gap: 5px;
   background: none; border: none; cursor: pointer;
   padding: 4px;
+  margin-left: 1rem;
 }
 
 .hamburger span {
@@ -308,10 +311,13 @@ a { text-decoration: none; color: inherit; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
 
 .nav-menu {
-  display: flex; align-items: center;
+  display: flex; 
+  align-items: center;
+  justify-content: flex-end; /* PENTING: Lurus ke samping kanan */
   list-style: none; gap: 0;
   flex: 1;
-  overflow-x: auto;
+  overflow: visible; /* PENTING: Dropdown tidak terpotong */
+  flex-wrap: wrap; /* Jika layar sempit, turun ke bawah dengan rapi */
 }
 
 .nav-item { position: relative; }
@@ -353,12 +359,12 @@ a { text-decoration: none; color: inherit; }
   opacity: 0; visibility: hidden;
   transform: translateY(-8px);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1001;
+  z-index: 9999; /* Pastikan di atas konten lain */
 }
 
 .dropdown-wide { min-width: 320px; }
 
-.nav-item:hover .dropdown {
+.nav-item:hover > .dropdown {
   opacity: 1; visibility: visible;
   transform: translateY(0);
 }
@@ -378,7 +384,6 @@ a { text-decoration: none; color: inherit; }
 }
 
 .dropdown li a i { width: 18px; text-align:center; color: var(--primary); }
-
 .dropdown li + li { border-top: 1px solid #E5E7EB; }
 
 /* ====== MAIN CONTENT ====== */
