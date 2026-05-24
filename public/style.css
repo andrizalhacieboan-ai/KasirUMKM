@@ -1044,3 +1044,68 @@ select.form-control { cursor: pointer; }
   .main-content { padding: 0; }
   .card { box-shadow: none; border: 1px solid #ccc; }
 }
+
+/* ====== PERBAIKAN MOBILE / ANDROID ====== */
+
+/* Mencegah delay klik 300ms di mobile */
+* { touch-action: manipulation; }
+
+/* Pastikan target klik navbar minimal 44px (standar Apple/Google) */
+.nav-link {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.hamburger {
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+}
+
+/* Fix scroll pada menu mobile */
+.nav-menu {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Perbaikan dropdown di Mobile */
+@media (max-width: 768px) {
+  .nav-item.has-dropdown .dd-arrow {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .nav-item.mobile-open .dd-arrow {
+    transform: rotate(180deg);
+  }
+
+  .dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: block;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    background: var(--dark-soft);
+    border-radius: 0;
+  }
+
+  .nav-item.mobile-open .dropdown {
+    max-height: 800px; /* Cukup untuk menampung semua item */
+    border-bottom: 2px solid var(--primary-darker);
+  }
+
+  .dropdown li a {
+    padding: 0.8rem 1.5rem;
+    color: #D1D5DB;
+  }
+  
+  .dropdown li a:hover {
+    background: rgba(255,107,0,0.15);
+    color: var(--primary);
+  }
+}
