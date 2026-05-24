@@ -389,10 +389,28 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-/* ====== Start Server ====== */
-app.listen(PORT, async () => {
-  console.log(`KasirKu berjalan di port ${PORT}`);
-  await initDatabase();
-});
+/* ====== Start Server / Export for Vercel ====== */
+if (process.env.VERCEL) {
+  // Lingkungan Vercel (Serverless): Jangan gunakan app.listen()
+  // Cukup export app, Vercel yang akan menangani routing
+  module.exports = app;
+  
+  // Inisialisasi database secara asinkron tanpa blocking
+  initDatabase().then(() => {
+    console.log('Vercel Serverless: Database initialized');
+  }).catch(err => {
+    console.warn('Vercel Serverless: DB Init Warning -', err.message);
+  });
 
-module.exports = app;
+} else {
+  // Lingkungan Lokal (Development): Gunakan app.listen()
+  app.listen(PORT, async () => {
+    console.log(`KasirKu berjalan lokal di port ${PORT}`);
+    try {
+      await initDatabase();
+    } catch (err) {
+      console.error('Gagal inisialisasi database lokal:', err.message);
+    }
+  });
+  module.exports = app;
+}
