@@ -163,17 +163,201 @@ document.addEventListener('DOMContentLoaded', function() {
     this.classList.toggle('active');
     document.getElementById('navMenu').classList.toggle('open');
   });
+/* ================================================================
+   KasirKu — Frontend JavaScript (FIXED NAVBAR & SESSION)
+   ================================================================ */
 
-  // --- Mobile dropdown toggle ---
-  var ddLinks = document.querySelectorAll('.nav-item.has-dropdown > .nav-link');
-  for (var i = 0; i < ddLinks.length; i++) {
-    ddLinks[i].addEventListener('click', function(e) {
+// ====== State Global ======
+var APP = {
+  currentUser: null,
+  currentPage: 'dashboard',
+  cart: [],
+  products: [],
+  customers: [],
+  areas: [],
+  sales: [],
+  purchases: [],
+  debts: [],
+  payables: [],
+  users: []
+};
+
+// ====== SESSION MANAGEMENT (PERMANEN LOGIN) ======
+function saveSession(user) {
+  try {
+    localStorage.setItem('kasirku_auth', JSON.stringify(user));
+  } catch (e) { console.warn('LocalStorage tidak didukung'); }
+}
+
+function loadSession() {
+  try {
+    var session = localStorage.getItem('kasirku_auth');
+    if (session) return JSON.parse(session);
+  } catch (e) { console.warn('Gagal memuat sesi'); }
+  return null;
+}
+
+function clearSession() {
+  try {
+    localStorage.removeItem('kasirku_auth');
+  } catch (e) {}
+}
+
+// ====== Helper: API Call ======
+async function apiCall(endpoint, method, body) {
+  try {
+    var opts = { method: method || 'GET', headers: { 'Content-Type': 'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    var res = await fetch('/api/' + endpoint, opts);
+    return await res.json();
+  } catch (e) {
+    console.warn('API unavailable:', e.message);
+    return null;
+  }
+}
+
+// ====== Helper lainnya (sama seperti sebelumnya) ======
+function formatRupiah(num) {
+  if (num === null || num === undefined) return 'Rp 0';
+  var n = Number(num);
+  if (isNaN(n)) return 'Rp 0';
+  return 'Rp ' + n.toLocaleString('id-ID');
+}
+
+function formatTanggal(str) {
+  if (!str) return '-';
+  var d = new Date(str);
+  if (isNaN(d.getTime())) return '-';
+  return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+
+function generateNota(prefix) {
+  var d = new Date();
+  var ds = '' + d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
+  var rnd = Math.floor(Math.random() * 9000) + 1000;
+  return (prefix || 'TRX') + '-' + ds + '-' + rnd;
+}
+
+function esc(str) {
+  if (!str) return '';
+  var div = document.createElement('div');
+  div.textContent = String(str);
+  return div.innerHTML;
+}
+
+// ====== Toast & Modal ======
+function showToast(message, type) {
+  type = type || 'info';
+  var container = document.getElementById('toastContainer');
+  var icons = { success: 'fa-check-circle', error: 'fa-times-circle', warning: 'fa-exclamation-triangle', info: 'fa-info-circle' };
+  var toast = document.createElement('div');
+  toast.className = 'toast toast-' + type;
+  toast.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i><span>' + message + '</span>';
+  container.appendChild(toast);
+  setTimeout(function() {
+    toast.classList.add('toast-out');
+    setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+  }, 3500);
+}
+
+function openModal(title, bodyHTML, footerHTML) {
+  var card = document.getElementById('modalCard');
+  document.getElementById('modalTitle').innerHTML = title;
+  document.getElementById('modalBody').innerHTML = bodyHTML;
+  var oldFooter = card.querySelector('.modal-footer');
+  if (oldFooter) card.removeChild(oldFooter);
+  if (footerHTML) {
+    var ft = document.createElement('div');
+    ft.className = 'modal-footer';
+    ft.innerHTML = footerHTML;
+    card.appendChild(ft);
+  }
+  document.getElementById('modalOverlay').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').style.display = 'none';
+}
+
+// ====== Initialize on DOM Ready ======
+document.addEventListener('DOMContentLoaded', function() {
+
+  // --- Cek Session Permanen Terlebih Dahulu ---
+  var savedSession = loadSession();
+  if (savedSession) {
+    APP.currentUser = savedSession;
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    navigateTo('dashboard');
+    loadInitialData();
+  }
+
+  // --- Login Form ---
+  var loginForm = document.getElementById('loginForm');
+  var loginCancel = document.getElementById('loginCancel');
+  var loginOverlay = document.getElementById('loginOverlay');
+
+  loginForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var username = document.getElementById('loginUser').value.trim();
+    var password = document.getElementById('loginPass').value.trim();
+    var errorEl = document.getElementById('loginError');
+
+    if (!username || !password) {
+      errorEl.textContent = 'User ID dan Password harus diisi!';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    var result = await apiCall('login', 'POST', { username: username, password: password });
+
+    if (result && result.success) {
+      APP.currentUser = result.user;
+    } else if (username === 'andriyt' && password === 'andriyt002') {
+      APP.currentUser = { id: 1, username: 'andriyt', role: 'admin' };
+    } else {
+      errorEl.textContent = result ? result.message : 'Username atau password salah!';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    // Simpan sesi ke localStorage (Permanen)
+    saveSession(APP.currentUser);
+
+    errorEl.style.display = 'none';
+    loginOverlay.classList.add('hiding');
+    setTimeout(function() {
+      loginOverlay.style.display = 'none';
+      document.getElementById('mainApp').style.display = 'block';
+      navigateTo('dashboard');
+      loadInitialData();
+    }, 500);
+  });
+
+  loginCancel.addEventListener('click', function() {
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginError').style.display = 'none';
+  });
+
+  // --- Hamburger ---
+  document.getElementById('hamburgerBtn').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.getElementById('navMenu').classList.toggle('open');
+  });
+
+  // --- Mobile dropdown toggle (Perbaikan Sentuh/Touch) ---
+  document.querySelectorAll('.nav-item.has-dropdown > .nav-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
       if (window.innerWidth <= 768) {
         e.preventDefault();
+        e.stopPropagation(); // Mencegah event bubbling yang bikin tidak respon
         this.parentElement.classList.toggle('mobile-open');
       }
     });
-  }
+  });
 
   // --- Close modal on overlay ---
   document.getElementById('modalOverlay').addEventListener('click', function(e) {
@@ -207,6 +391,7 @@ async function loadInitialData() {
   var userRes = await apiCall('users');
   if (userRes && userRes.success) APP.users = userRes.data;
 }
+
 
 // ====== Reload specific data ======
 async function reloadProducts() { var r = await apiCall('products'); if (r && r.success) APP.products = r.data; }
