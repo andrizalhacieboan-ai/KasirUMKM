@@ -7,8 +7,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 /* ====== Turso Database Connection ====== */
-const dbUrl = process.env.TURSO_BASE_URL || '';
-const dbToken = process.env.TURSO_AUTH_TOKEN || '';
+const dbUrl = process.env.TURSO_BASE_URL;
+const dbToken = process.env.TURSO_AUTH_TOKEN;
 
 const db = createClient({
   url: dbUrl,
