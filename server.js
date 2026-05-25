@@ -7,10 +7,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 /* ====== Turso Database Connection ====== */
+const dbUrl = process.env.TURSO_BASE_URL || '';
+const dbToken = process.env.TURSO_AUTH_TOKEN || '';
+
 const db = createClient({
-  url: process.env.TURSO_BASE_URL || 'libsql://kasirku-andri.aws-ap-south-1.turso.io',
-  authToken: process.env.TURSO_AUTH_TOKEN || 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJleHAiOjE3ODczODg3OTEsImlhdCI6MTc3OTYxMjc5MSwiaWQiOiIwMTllNGYxZi1kZTAxLTdkOTQtODA3Yi05MGMyMWYxYTdkMWYiLCJyaWQiOiJiODAzNWNmOC03MzdhLTQ4ODgtOGM0NC0yNzgxYTU1ZGRlMTcifQ.du4Ay_je4Q1dSf6ejhwjSZv4CO7PsH-OsL3kJs7EB-JlxXTJYgtGip0FuYdm3tSEzWBplD4p0KSJscW29lyHAw'
+  url: dbUrl,
+  authToken: dbToken
 });
+
+console.log(`Menghubungkan ke database: ${dbUrl.includes('libsql') ? 'Turso Cloud' : 'Local SQLite'}`);
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
