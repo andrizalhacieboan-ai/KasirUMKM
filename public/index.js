@@ -1,6 +1,5 @@
 
-  /*============================================
-   KasirKu — Frontend ================================================================ */
+  /*================  KasirKu — Frontend =============== */
 
 // ====== State Global ======
 var APP = {
@@ -267,8 +266,8 @@ function navigateTo(page) {
 }
 
 // ====== EXIT ======
-function handleExit(e) {
-  e.preventDefault();
+function handleExit() {
+  // Dihapus e.preventDefault() karena tidak diperlukan lagi dengan href="javascript:void(0)"
   openModal(
     '<i class="fas fa-right-from-bracket text-danger"></i> Exit Program',
     '<p style="font-size:1.05rem;line-height:1.6;">Apakah Anda yakin ingin keluar dari <strong>KasirKu</strong>?</p>',
@@ -293,7 +292,6 @@ function doExit() {
   document.getElementById('loginError').style.display = 'none';
   showToast('Anda telah keluar dari sistem', 'info');
 }
-
 // ====================================================================
 // PAGE RENDERERS & INIT
 // ====================================================================
