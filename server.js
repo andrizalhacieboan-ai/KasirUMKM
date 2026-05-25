@@ -118,7 +118,14 @@ async function initDatabase() {
   ];
 
   for (const sql of tables) {
-    try { await db.execute(sql); } catch (e) { /* table mungkin sudah ada */ }
+    try {
+      await db.execute(sql);
+    } catch (e) {
+      // Abaikan error "table already exists", tapi tampilkan error lain jika ada
+      if (!e.message.includes('already exists')) {
+        console.warn('DB Init Warning:', e.message);
+      }
+    }
   }
 
   // Seed default admin jika belum ada
@@ -126,12 +133,14 @@ async function initDatabase() {
     const existing = await db.execute("SELECT id FROM users WHERE username='andriyt'");
     if (existing.rows.length === 0) {
       await db.execute("INSERT INTO users (username, password, role, key_password) VALUES ('andriyt', 'andriyt002', 'admin', 'key002')");
+      console.log('Default admin user created.');
     }
-  } catch (e) { console.log('Seed user skip:', e.message); }
+  } catch (e) {
+    console.warn('Seed user skip:', e.message);
+  }
 
-  console.log('Database initialized');
+  console.log('Database initialization finished.');
 }
-
 /* ====== API: Auth ====== */
 app.post('/api/login', async (req, res) => {
   try {
